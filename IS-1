@@ -1,0 +1,48 @@
+api_data.sql
+
+CREATE TABLE api_data(
+key varchar(15) PRIMARY KEY,
+place_name text NOT NULL,
+admin_name1 text NOT NULL,
+latitude double precision NOT NULL,
+longitude double precision NOT NULL,
+accuracy integer NOT NULL)
+
+
+is_1.py
+
+from flask import Flask
+import csv
+import dbapi
+conn = dbapi.connect("host=localhost dbname=postgres user=postgres")
+cur = conn.cursor()
+with open(' https://github.com/sanand0/pincode/blob/master/data/IN.csv', 'r') as f:
+reader = csv.reader(f)
+next(reader)
+
+app = Flask(__name__)
+app.config["DEBUG"] = True
+
+@app.route("/", methods=["GET","POST"])
+def home():
+   error=''
+   try:
+	if request.method =="POST":
+	    lat = request.form['latitude']
+	   lng = request.form['longitude']
+	   cur.execute('SELECT key, place_name, admin_name1 FROM api_data')
+	   all = cur.fetchall()
+	  
+	else:
+	      cur.execute('SELECT * FROM api_data')
+	      all = cur.fetchall()
+	      for row in reader:
+	              cur.execute(
+			"INSERT INTO users VALUES (%s, %s, %s, %f, %f, %d)",
+		row
+	    )
+    conn.commit()
+    return "Hello World!"
+
+if __name__ == '__main__':
+    app.run(debug=True)
