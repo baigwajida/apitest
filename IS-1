@@ -28,11 +28,12 @@ def home():
    error=''
    try:
 	if request.method =="POST":
-	    lat = request.form['latitude']
+	   lat = request.form['latitude']
 	   lng = request.form['longitude']
 	   cur.execute('SELECT key, place_name, admin_name1 FROM api_data')
 	   all = cur.fetchall()
-	  
+	   if pin == "key" and pin == "lat+lng"
+	   	return none
 	else:
 	      cur.execute('SELECT * FROM api_data')
 	      all = cur.fetchall()
