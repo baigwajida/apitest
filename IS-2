@@ -1,0 +1,33 @@
+is_2.py
+
+from flask import Flask
+from math import radian, cos, sin, asin, sqrt
+import csv
+import dbapi
+conn = dbapi.connect("host=localhost dbname=postgres user=postgres")
+cur = conn.cursor()
+with open(' https://github.com/sanand0/pincode/blob/master/data/IN.csv', 'r') as f:
+reader = csv.reader(f)
+next(reader)
+
+app = Flask(__name__)
+app.config["DEBUG"] = True
+
+@app.route("/get_using_postgres", methods=["GET"])
+def distance_using_postgres():
+       loc = request.form['lat',  'lng']
+       rad = earth()
+       for rad in range(5):
+	return earth_distance(earth, earth)
+       
+@app.route("/get_using_self", methods=["GET"])
+def distance_using_self(lat, lng):
+      lng = radians(lng)
+      lat = radians(lat)
+      dlon = lng
+      dlat = lat
+      a = sin(dlat/2)**2 + cos(lat)*sin(dlon/2)**2
+      c = 2 * asin(sqrt(a))
+     # radius of earth in kilometers. Use 3956for miles 
+      r = 6371
+      return (c*r) 
