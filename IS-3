@@ -1,0 +1,72 @@
+geojson.json
+
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "name": "Allahabad",
+        "type": "City",
+        "parent": "Uttar Pradesh"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          81.837158203125,
+          25.45319497952487
+        ]
+      }
+    }
+  ]
+}
+
+
+
+CREATE TABLE geodata(ID SERIAL NOT NULL PRIMARY KEY,info json NOT NULL);
+INSERT INTO geodata (info) values ('{"":"","":"","":""}')
+
+
+
+ Map URL :
+  http://geojson.io/#map=7/26.416/80.409
+
+
+
+
+load_json.py
+
+from flask import Flask
+import json
+import psycopg2
+from pprint import pprint
+app = Flask(__name__)
+app.config["DEBUG"] = True
+
+@app.route("/")
+class DatabaseConnection:
+       def parse_geojson():
+              with open('./geojson.json') as fj:
+                      data = json.load(fj)
+        def __init__(self):
+	try:
+	       self.connection = psycopg2.connect("host=localhost dbname=postgres user=postgres")
+	       self.connection.autocommit = True
+                     self.cursor  = self.connection.cursor()
+              except:
+	       pprint("Cannot connect to database")
+       def create_table(self):
+	create_table_command =" CREATE TABLE geodata(id serial PRIMARY KEY, info json NOT NULL)"
+               self.cursor.execute(create_table_command)
+      def insert_json(self):
+	 insert_command = INSERT INTO geodata (info) values ('{"parse_geojson()"}')
+	pprint(insert_command)
+	self.cursor.execute(insert_command)
+
+if __name__ == '__main__':
+    database_connection = DatabaseConnection()
+    database_connection.create_table()
+    database_connection.insert_json()
